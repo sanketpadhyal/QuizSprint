@@ -44,11 +44,13 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 
 ```plaintext
 📦 QuizSprint
- ┣ 📂 assets            # Icons & images
- ┣ 📜 index.html        # Main quiz page
- ┣ 📜 admin.html        # Admin panel
- ┣ 📜 style.css         # Styling for quiz & admin
- ┣ 📜 script.js         # Frontend quiz logic
- ┣ 📜 index.js          # Backend server
- ┣ 📜 quizzes.json      # Stores all quiz questions
- ┣ 📜 leaderboard.json  # Stores leaderboard scores
+ ┣ 📂 assets              # Icons & images & favicons.
+ ┣ 📜 index.html          # Main page / landing type.
+ ┣ 📜 admin.html          # Admin panel
+ ┣ 📜 quiz.html           # Quizes panel
+ ┣ 📜 leaderboard.html    # Leaderboard panel
+ ┣ 📜 result.html         # Result displays here!
+ ┣ 📜 about.html          # About web and developer
+ ┣ 📜 index.js            # Backend server
+ ┣ 📜 quizzes.json        # Stores all quiz questions
+ ┣ 📜 leaderboard.json    # Stores leaderboard scores
