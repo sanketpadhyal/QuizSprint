@@ -64,6 +64,4 @@ QuizSprint represents my passion for web development, built as part of my 14+ li
  ┣ 📜 leaderboard.json    # Stores leaderboard scores
 
 
----
-
 
