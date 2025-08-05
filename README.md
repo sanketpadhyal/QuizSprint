@@ -40,6 +40,14 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 
 ---
 
+📌 Note
+This project is fully open-source and educational.
+We have included all files including backend, and you can run the backend on platforms like Replit, Render, or any Node.js host.
+
+QuizSprint represents my passion for web development, built as part of my 14+ live projects journey, all created within 1 month after 12th grade.
+
+---
+
 ## 📂 Project Structure  
 
 ```plaintext
@@ -54,3 +62,13 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
  ┣ 📜 index.js            # Backend server
  ┣ 📜 quizzes.json        # Stores all quiz questions
  ┣ 📜 leaderboard.json    # Stores leaderboard scores
+
+
+---
+
+This is **GitHub-ready** and professional.  
+
+If you want, I can also **add badges** (like “Made with Node.js”, “Live Demo”, “Open Source”) to make it **look premium** for recruiters.  
+
+Do you want me to **add those eye-catching badges** now? It will make your README look like a **pro-level portfolio project**.
+
