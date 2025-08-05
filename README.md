@@ -66,9 +66,4 @@ QuizSprint represents my passion for web development, built as part of my 14+ li
 
 ---
 
-This is **GitHub-ready** and professional.  
-
-If you want, I can also **add badges** (like “Made with Node.js”, “Live Demo”, “Open Source”) to make it **look premium** for recruiters.  
-
-Do you want me to **add those eye-catching badges** now? It will make your README look like a **pro-level portfolio project**.
 
