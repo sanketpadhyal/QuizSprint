@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/quiz.png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizSprint | Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: url('assets/bg.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 15px;
+    }
+
+    /* Quiz Card */
+    .quiz-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 40px 30px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 1s ease;
+      color: #fff;
+    }
+
+    .quiz-card h2 {
+      margin-bottom: 15px;
+      font-size: 26px;
+      color: #00e676;
+      text-shadow: 0 0 10px rgba(0,230,118,0.3);
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 15px;
+      border: 2px solid rgba(255,255,255,0.4);
+      font-size: 16px;
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    input[type="text"]::placeholder { color: #ddd; }
+    input[type="text"]:focus {
+      border-color: #00e676;
+      box-shadow: 0 0 12px rgba(0,230,118,0.5);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      background: linear-gradient(45deg, #00e676, #00c853);
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0,230,118,0.3);
+      animation: popIn 0.6s ease;
+    }
+    button:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 4px 20px rgba(0,200,83,0.5);
+    }
+
+    .question-block {
+      background: rgba(0,0,0,0.6);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+      animation: slideIn 0.4s ease;
+    }
+
+    .question-block h3 { margin-bottom: 8px; }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    input[type="radio"] { margin-right: 10px; }
+    label:hover { background: rgba(255,255,255,0.35); }
+
+    .submit-btn {
+      margin-top: 30px;
+      background: linear-gradient(45deg, #2196f3, #1976d2);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(33,150,243,0.3);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 4px 20px rgba(33,150,243,0.5);
+    }
+
+    .hidden { display: none; }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(15px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .quiz-card { padding: 25px; }
+      input[type="text"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Quiz Container -->
+  <div class="quiz-card">
+    <h2 id="quiz-title">Loading Quiz...</h2>
+    <input type="text" id="username" placeholder="Enter your name to start" required>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <form id="quiz-form" class="hidden"></form>
+    <button type="button" class="submit-btn hidden" onclick="submitQuiz()">Submit Quiz</button>
+  </div>
+
+  <script>
+    const backendURL = "Your_Backend_Url_Here";
+    let quizData = [];
+    let quizId;
+    let username = "";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    quizId = urlParams.get("id") || 1;
+
+    async function loadQuizTitle() {
+      const res = await fetch(`${backendURL}/quiz/${quizId}`);
+      if (!res.ok) {
+        document.getElementById("quiz-title").textContent = "Quiz not found! 😢";
+        return;
+      }
+      const data = await res.json();
+      quizData = data.questions || [];
+      document.getElementById("quiz-title").textContent = data.title;
+    }
+
+    async function startQuiz() {
+      username = document.getElementById("username").value.trim();
+      if (!username) return alert("Please enter your name to start the quiz!");
+      if (quizData.length === 0) return alert("This quiz has no questions yet!");
+
+      const quizForm = document.getElementById("quiz-form");
+      quizForm.innerHTML = "";
+
+      quizData.forEach((q, i) => {
+        const questionBlock = document.createElement("div");
+        questionBlock.classList.add("question-block");
+
+        const qTitle = document.createElement("h3");
+        qTitle.textContent = `${i + 1}. ${q.q}`;
+        questionBlock.appendChild(qTitle);
+
+        q.options.forEach(opt => {
+          const label = document.createElement("label");
+          label.innerHTML = `<input type="radio" name="q${i}" value="${opt}"> ${opt}`;
+          questionBlock.appendChild(label);
+        });
+
+        quizForm.appendChild(questionBlock);
+      });
+
+      quizForm.classList.remove("hidden");
+      document.querySelector(".submit-btn").classList.remove("hidden");
+    }
+
+    async function submitQuiz() {
+      const answers = quizData.map((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        return selected ? selected.value : null;
+      });
+
+      const res = await fetch(`${backendURL}/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quizId, answers, username })
+      });
+
+      const result = await res.json();
+      localStorage.setItem("exam_score", result.score);
+      localStorage.setItem("exam_total", result.total);
+      localStorage.setItem("exam_quiz_name", document.getElementById("quiz-title").textContent);
+
+      window.location.href = "result.html";
+    }
+
+    loadQuizTitle();
+  </script>
+</body>
+</html>

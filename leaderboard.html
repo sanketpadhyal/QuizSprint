@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/leaderboard.png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizSprint | Leaderboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: url('assets/bg.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Leaderboard Card */
+    .leaderboard-card {
+      width: 90%;
+      max-width: 800px;
+      padding: 40px 30px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      text-align: center;
+      color: #fff;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .leaderboard-card h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #00e676;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 20px 0;
+      border-radius: 12px;
+      border: 2px solid #00e676;
+      font-size: 16px;
+      outline: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      text-align: center;
+    }
+
+    select option { color: #000; }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    th {
+      background: rgba(0,230,118,0.85);
+      color: #000;
+    }
+
+    tr:nth-child(even) { background: rgba(255,255,255,0.1); }
+    tr:nth-child(odd) { background: rgba(255,255,255,0.05); }
+
+    /* Back to Home Button */
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg,#00e676,#00c853);
+      color: #000;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .back-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(135deg,#00c853,#00e676);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Leaderboard Section -->
+  <div class="leaderboard-card">
+    <h2>🏆 Leaderboard</h2>
+
+    <select id="quizSelect" onchange="loadLeaderboard()">
+      <option value="">Select a quiz</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Score</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-table">
+        <tr><td colspan="4">Select a quiz to view leaderboard</td></tr>
+      </tbody>
+    </table>
+
+    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    const backendURL = "Your_Backend_Url_Here";
+
+    async function loadQuizzes() {
+      try {
+        const res = await fetch(`${backendURL}/quizzes`);
+        const quizzes = await res.json();
+
+        const select = document.getElementById('quizSelect');
+        select.innerHTML = `<option value="">Select a quiz</option>`;
+
+        quizzes
+          .filter(q => q.questions && q.questions.length > 0) 
+          .forEach(q => {
+            const option = document.createElement('option');
+            option.value = q.id;
+            option.textContent = q.title;
+            select.appendChild(option);
+          });
+
+      } catch {
+        alert("Backend is turned off contact developer!");
+      }
+    }
+
+    async function loadLeaderboard() {
+      const quizId = document.getElementById('quizSelect').value;
+      const table = document.getElementById('leaderboard-table');
+
+      if (!quizId) {
+        table.innerHTML = `<tr><td colspan="4">Select a quiz to view leaderboard</td></tr>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(`${backendURL}/leaderboard/${quizId}`);
+        const leaderboard = await res.json();
+
+        if (leaderboard.length === 0) {
+          table.innerHTML = `<tr><td colspan="4">No scores yet for this quiz</td></tr>`;
+          return;
+        }
+
+        table.innerHTML = leaderboard.map((entry, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${entry.username}</td>
+            <td>${entry.score}</td>
+            <td>${entry.total}</td>
+          </tr>
+        `).join("");
+      } catch {
+        table.innerHTML = `<tr><td colspan="4">Error loading leaderboard</td></tr>`;
+      }
+    }
+
+    loadQuizzes();
+  </script>
+</body>
+</html>

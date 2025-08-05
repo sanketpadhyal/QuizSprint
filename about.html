@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/index.png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizSprint | Online Exam Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      height: 100vh;
+      background: url('assets/bg.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* HEADER */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      color: #fff;
+      position: relative;
+      z-index: 1000;
+    }
+
+     .logo {
+  font-size: 30px;         
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000000dc;      
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3); 
+  letter-spacing: 1px;      
+}
+
+.logo span:first-child {
+  font-size: 34px;        
+}
+
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+  position: relative;
+  cursor: pointer; 
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b6b;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #ff6b6b;
+  transform: scale(1.05); 
+}
+
+nav a:hover::after {
+  width: 100%; 
+}
+
+
+    /* Hamburger for Mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 12px;
+      flex-direction: column;
+      padding: 15px;
+      gap: 10px;
+    }
+
+    .mobile-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .mobile-nav a:hover { color: #ff6b6b; }
+
+
+    /* Responsive Mobile */
+    @media (max-width: 900px) {
+      header { padding: 15px 20px; }
+      nav { display: none; }
+      .hamburger { display: flex; }
+
+      .main { flex-direction: column; justify-content: center; padding: 0 20px; text-align: center; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; margin-bottom: 20px; }
+
+      .quiz-section {
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        height: 65%;
+        bottom: 0;
+        top: auto;
+        right: 0;
+        transform: translateY(100%);
+      }
+      .quiz-section.active { transform: translateY(0); }
+
+      .close-btn {
+        top: 10px; right: 15px; background: rgba(255,255,255,0.2);
+      }
+    }
+
+    .about-section {
+      flex: 1;
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 40px;
+      text-align: center;
+      background: rgba(255,255,255,0.15);
+      border-radius: 25px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+    .about-section h1 {
+      font-size: 38px;
+      margin-bottom: 20px;
+      color: #000000ce;
+    }
+    .about-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #eee;
+    }
+
+/* GitHub Button */
+.github-link {
+  margin-top: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50px;
+  color: #000000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.github-link img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0); 
+}
+
+.github-link:hover {
+  background: rgba(255,255,255,0.35);
+  transform: translateY(-2px);
+}
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 15px 20px; }
+      nav { gap: 15px; }
+      .about-section { margin: 40px 20px; padding: 20px; }
+      .about-section h1 { font-size: 28px; }
+      .about-section p { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">QuizSprint 🎓 </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="about.html">About</a>
+    </div>
+  </header>
+
+  <main class="about-section">
+    <h1>QuizSprint 🎓</h1>
+    <p><i>
+      QuizSprint is an interactive online quiz platform designed to test your knowledge, 
+      compete with friends, and track your scores. 
+    </p></i>
+    <p><i>
+      Our journey started as a small project to make learning fun and competitive. 
+      Now, we aim to provide quizzes for coding, academics, and general knowledge.
+    </p></i>
+    <p><i>
+      From brainstorming features to designing an engaging UI with ice-glass effects, 
+      QuizSprint reflects our passion for combining technology with learning.
+    </p></i>
+    <p><i><strong>
+      Made with ❤️ by Sanket Padhyal.
+    </p></i></strong>
+
+    <a href="https://github.com/sanketpadhyal" target="_blank" class="github-link">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub Icon">
+      Visit My GitHub
+    </a>
+  </main>
+
+ <script>
+    function toggleMenu() {
+      document.getElementById('mobileNav').style.display =
+        document.getElementById('mobileNav').style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
+</body>
+</html>

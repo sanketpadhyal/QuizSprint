@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/index.png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizSprint | Online Exam Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      height: 100vh;
+      background: url('assets/bg.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Dark overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* HEADER */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      color: #fff;
+      position: relative;
+      z-index: 1000;
+    }
+
+     .logo {
+  font-size: 30px;           /* Slightly bigger */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000000dc;            /* Cute yellow color */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Soft shadow for depth */
+  letter-spacing: 1px;       /* Slight spacing for a clean look */
+}
+
+.logo span:first-child {
+  font-size: 34px;           /* Emoji slightly bigger for cute feel */
+}
+
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+  position: relative;
+  cursor: pointer; /* Pointer on hover */
+}
+
+/* Underline hover animation */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b6b;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #ff6b6b;
+  transform: scale(1.05); /* slight zoom */
+}
+
+nav a:hover::after {
+  width: 100%; /* underline expands smoothly */
+}
+
+
+    /* Hamburger for Mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 12px;
+      flex-direction: column;
+      padding: 15px;
+      gap: 10px;
+    }
+
+    .mobile-nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .mobile-nav a:hover { color: #ff6b6b; }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      position: relative;
+    }
+
+    .hero {
+      max-width: 500px;
+      color: #fff;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #ddd;
+    }
+
+    .start-btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #03ff03bb;
+      color: #ffffff;
+      transition: 0.3s;
+    }
+    .start-btn:hover { background: #ccfa01; transform: translateY(-2px); }
+
+/* Quiz Panel */
+.quiz-section {
+  width: 420px;
+  height: 75%; /* shorter panel */
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) translateX(100%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 30px 0 0 30px;
+  padding: 40px 25px 30px;
+  color: #fff;
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  overflow-y: auto; /* scrolling enabled */
+  scrollbar-width: none; /* Firefox hide scrollbar */
+}
+
+.quiz-section::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge hide scrollbar */
+}
+
+.quiz-section.active {
+  transform: translateY(-50%) translateX(0);
+  opacity: 1;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  background: rgba(255,255,255,0.15);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.close-btn:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+
+/* Mobile bottom-sheet style */
+@media (max-width: 900px) {
+  .quiz-section {
+    width: 90%;
+    height: 60%;
+    top: auto;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%) translateY(100%);
+    border-radius: 30px 30px 0 0;
+  }
+  .quiz-section.active {
+    transform: translateX(50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+
+    .quiz-section h2 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ffeb3b;
+    }
+
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .quiz-card {
+      background: rgba(255,255,255,0.12);
+      padding: 20px;
+      width: 90%;
+      border-radius: 16px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .quiz-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.18); }
+
+    .quiz-card h3 { margin-bottom: 10px; }
+    .quiz-card p { margin-bottom: 15px; color: #ccc; }
+
+    .quiz-card button {
+      background: #00e676;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .quiz-card button:hover { background: #00c853; transform: translateY(-2px); }
+
+    /* Responsive Mobile */
+    @media (max-width: 900px) {
+      header { padding: 15px 20px; }
+      nav { display: none; }
+      .hamburger { display: flex; }
+
+      .main { flex-direction: column; justify-content: center; padding: 0 20px; text-align: center; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; margin-bottom: 20px; }
+
+      .quiz-section {
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        height: 65%;
+        bottom: 0;
+        top: auto;
+        right: 0;
+        transform: translateY(100%);
+      }
+      .quiz-section.active { transform: translateY(0); }
+
+      .close-btn {
+        top: 10px; right: 15px; background: rgba(255,255,255,0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">QuizSprint 🎓 </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="about.html">About</a>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="hero">
+      <h1><strong>Test Your Knowledge,<br> Compete with Friends!</strong></h1>
+      <p><i>Take fun online quizzes to sharpen your skills and challenge your friends.</i></p>
+      <button class="start-btn" onclick="showQuizzes()"><strong>Start Your Exam →</strong></button>
+    </div>
+
+    <section class="quiz-section" id="quiz-section">
+      <div class="close-btn" onclick="hideQuizzes()">×</div>
+      <h2>📚 Available Quizzes</h2>
+      <div class="quiz-container">
+        <div class="quiz-card">
+          <h3>JavaScript Basics</h3>
+          <p>Beginner 🧪</p>
+          <button onclick="window.location.href='quiz.html?id=1'">Start Quiz</button>
+        </div>
+        <div class="quiz-card">
+          <h3>HTML & CSS Master</h3>
+          <p>Intermediate 🧪</p>
+          <button onclick="window.location.href='quiz.html?id=2'">Start Quiz</button>
+        </div>
+        <div class="quiz-card">
+          <h3>Node.js Fundamentals</h3>
+          <p>Intermediate 🧪</p>
+          <button onclick="window.location.href='quiz.html?id=3'">Start Quiz</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showQuizzes() {
+      document.getElementById('quiz-section').classList.add('active');
+    }
+    function hideQuizzes() {
+      document.getElementById('quiz-section').classList.remove('active');
+    }
+    function toggleMenu() {
+      document.getElementById('mobileNav').style.display =
+        document.getElementById('mobileNav').style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
+</body>
+</html>

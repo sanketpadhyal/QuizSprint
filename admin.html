@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="assets/admin.png"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuizSprint | Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #f0f0f0;
+      background: linear-gradient(-45deg, #2b1055, #7597de, #1c0522, #00e676);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: assets/pg.jpg;
+      animation: moveParticles 60s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes moveParticles {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(-500px,-500px); }
+    }
+
+    .admin-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 30px;
+      background: rgba(30, 30, 30, 0.7);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #00e676;
+      text-shadow: 0 0 10px #00e67655;
+      animation: popIn 1s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #000000;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      background: rgba(255,255,255,0.15);
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      background: linear-gradient(45deg,#00e676,#00c853);
+      color: black;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .logout-btn {
+      background: linear-gradient(45deg,#ff5252,#ff1744);
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .question-block {
+      background-color: rgba(42,42,42,0.7);
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      background: rgba(0,0,0,0.2);
+    }
+
+    th { color: #00e676; }
+
+    .delete-btn {
+      background: linear-gradient(45deg,#ff5252,#ff1744);
+      color: white;
+    }
+
+    .view-btn {
+      background: linear-gradient(45deg,#29b6f6,#039be5);
+      color: white;
+    }
+
+    .small-btn {
+      background: linear-gradient(45deg,#ffa726,#fb8c00);
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .hidden { display: none; }
+
+    @media (max-width: 600px) {
+      .admin-container { padding: 20px; margin: 30px 10px; }
+    }
+
+    /* Responsive Table */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 15px;
+    margin: 20px 10px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .logout-btn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* Make question blocks easier to fill on mobile */
+  .question-block input {
+    font-size: 14px;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+  h2 { font-size: 20px; }
+  input, select, button { font-size: 14px; padding: 10px; }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="admin-container" id="login-box">
+    <h2>🔐 Admin Login</h2>
+    <input type="password" id="adminKey" placeholder="Enter Admin Key">
+    <button onclick="loginAdmin()">Login</button>
+    <p id="login-message" style="color: red;"></p>
+  </div>
+
+  <div class="admin-container hidden" id="admin-panel">
+    <button class="logout-btn" onclick="logoutAdmin()">🚪 Logout</button>
+    <h2>➕ Add Questions to Quiz</h2>
+
+    <select id="quizSelect">
+      <option value="">Select Quiz</option>
+      <option>JavaScript Basics</option>
+      <option>HTML & CSS Master</option>
+      <option>Node.js Fundamentals</option>
+    </select>
+
+    <div id="questions-container"></div>
+    <button onclick="addQuestion()">Add Question</button>
+    <button onclick="submitQuiz()">Submit Questions</button>
+
+    <hr style="margin: 40px 0; border: 1px solid rgba(255,255,255,0.1)">
+
+    <h2>📋 All Quizzes</h2>
+    <button class="small-btn" onclick="clearLeaderboard()">🧹 Clear All Leaderboard</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Questions</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="quiz-table">
+        <tr><td colspan="4">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  const backendURL = "Your_Backend_Url_Here";
+
+  let adminKey = ""; // Store key after successful login
+
+  // Auto login if already logged in
+  if (localStorage.getItem("exam_admin_logged_in") === "true") {
+    adminKey = localStorage.getItem("exam_admin_key") || "";
+    document.getElementById("login-box").classList.add("hidden");
+    document.getElementById("admin-panel").classList.remove("hidden");
+    loadQuizzes();
+  }
+
+  async function loginAdmin() {
+    const inputKey = document.getElementById("adminKey").value.trim();
+    if (!inputKey) return;
+
+    try {
+      const res = await fetch(`${backendURL}/admin/verifyKey`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminKey: inputKey })
+      });
+
+      // Backend responded but wrong password
+      if (!res.ok) {
+        document.getElementById("login-message").textContent = "❌ Wrong Password!";
+        return;
+      }
+
+      const data = await res.json();
+      if (!data.success) {
+        document.getElementById("login-message").textContent = "❌ Wrong Password!";
+        return;
+      }
+
+      // Login success
+      adminKey = inputKey;
+      localStorage.setItem("exam_admin_logged_in", "true");
+      localStorage.setItem("exam_admin_key", adminKey);
+      document.getElementById("login-box").classList.add("hidden");
+      document.getElementById("admin-panel").classList.remove("hidden");
+      loadQuizzes();
+
+    } catch (error) {
+      // ❌ Backend not reachable
+      document.getElementById("login-message").textContent = 
+        "⚠️ Backend is turned off, contact developer!";
+    }
+  }
+
+  function logoutAdmin() {
+    localStorage.removeItem("exam_admin_logged_in");
+    localStorage.removeItem("exam_admin_key");
+    location.reload();
+  }
+
+  function addQuestion() {
+    const container = document.getElementById("questions-container");
+    const block = document.createElement("div");
+    block.className = "question-block";
+    block.innerHTML = `
+      <input type="text" placeholder="Question" class="question-input">
+      <input type="text" placeholder="Option 1" class="opt-input">
+      <input type="text" placeholder="Option 2" class="opt-input">
+      <input type="text" placeholder="Option 3" class="opt-input">
+      <input type="text" placeholder="Option 4" class="opt-input">
+      <input type="text" placeholder="Correct Answer (exact match)" class="answer-input">
+    `;
+    container.appendChild(block);
+  }
+
+  async function submitQuiz() {
+    const title = document.getElementById("quizSelect").value;
+    if (!title) return alert("Select a quiz first!");
+
+    const blocks = document.querySelectorAll(".question-block");
+    const questions = [];
+
+    blocks.forEach(block => {
+      const q = block.querySelector(".question-input").value.trim();
+      const opts = [...block.querySelectorAll(".opt-input")].map(input => input.value.trim()).filter(Boolean);
+      const ans = block.querySelector(".answer-input").value.trim();
+      if (q && opts.length >= 2 && ans) {
+        questions.push({ q, options: opts, answer: ans });
+      }
+    });
+
+    if (questions.length === 0) return alert("Add at least one question!");
+
+    try {
+      const res = await fetch(`${backendURL}/admin/addQuiz`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminKey, title, questions })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message);
+        document.getElementById("questions-container").innerHTML = "";
+        loadQuizzes();
+      } else {
+        alert(data.error || "Failed to add questions.");
+      }
+    } catch {
+      alert("⚠️ Backend is turned off, contact developer!");
+    }
+  }
+
+  async function loadQuizzes() {
+    const table = document.getElementById("quiz-table");
+    table.innerHTML = `<tr><td colspan="4">Loading...</td></tr>`;
+
+    try {
+      const res = await fetch(`${backendURL}/quizzes`);
+      const quizzes = await res.json();
+      table.innerHTML = "";
+      quizzes.forEach(q => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${q.id}</td>
+          <td>${q.title}</td>
+          <td><button class="view-btn" onclick='viewQuestions(${JSON.stringify(q.questions)})'>${q.questions.length}</button></td>
+          <td><button class="delete-btn" onclick="deleteQuiz(${q.id})">Delete</button></td>
+        `;
+        table.appendChild(tr);
+      });
+    } catch {
+      table.innerHTML = `<tr><td colspan="4">⚠️ Backend is turned off, contact developer!</td></tr>`;
+    }
+  }
+
+  function viewQuestions(questions) {
+    if (!questions || questions.length === 0) {
+      alert("No questions uploaded yet!");
+      return;
+    }
+    let msg = "📜 Uploaded Questions:\n\n";
+    questions.forEach((q, i) => {
+      msg += `${i+1}. ${q.q}\nOptions: ${q.options.join(", ")}\nAnswer: ${q.answer}\n\n`;
+    });
+    alert(msg);
+  }
+
+  async function deleteQuiz(id) {
+    if (!confirm("Are you sure you want to delete this quiz's questions?")) return;
+
+    try {
+      const res = await fetch(`${backendURL}/admin/deleteQuiz/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminKey })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message);
+        loadQuizzes();
+      } else {
+        alert(data.error || "Failed to delete.");
+      }
+    } catch {
+      alert("⚠️ Backend is turned off, contact developer!");
+    }
+  }
+
+  async function clearLeaderboard() {
+    if (!confirm("Clear ALL leaderboard scores?")) return;
+
+    try {
+      const res = await fetch(`${backendURL}/admin/clearLeaderboard`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminKey })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Leaderboard cleared! ✅");
+      } else {
+        alert(data.error || "Failed to clear leaderboard.");
+      }
+    } catch {
+      alert("⚠️ Backend is turned off, contact developer!");
+    }
+  }
+</script>
+</body>
+</html>
