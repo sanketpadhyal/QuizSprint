@@ -19,7 +19,7 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 ## 🚀 Live Demo  
 
 - **Main Website:** [https://bespoke-tanuki-317082.netlify.app](https://bespoke-tanuki-317082.netlify.app)  
-- **Admin Panel:** [https://bespoke-tanuki-317082.netlify.app/admin](https://bespoke-tanuki-317082.netlify.app/admin)  
+- **Admin Panel:** [https://bespoke-tanuki-317082.netlify.app/admin](https://bespoke-tanuki-317082.netlify.app/admin) // i dont have extra domain i would suggest you to use different domain for admin.html so that it will be more sure!
 
 ---
 
