@@ -44,7 +44,7 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 This project is fully open-source and educational.
 We have included all files including backend, and you can run the backend on platforms like Replit, Render, or any Node.js host.
 
-QuizSprint represents my passion for web development, built as part of my 14+ live projects journey, all created within 1 month after 12th grade.
+QuizSprint represents my passion for web development i build it without any guidance of colleges i used ai like chat gpt gemini, trying to improve myself learn more and build strong.
 
 ---
 
