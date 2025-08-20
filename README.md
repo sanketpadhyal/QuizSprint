@@ -57,7 +57,7 @@ It is **100% mobile-friendly**, **fully responsive**, and includes a **working b
 
 ![Background Image](assets/bg.jpg)  
 
-> 💡 Always compress or optimize background images for maximum performance.  
+> 💡 Always compress or optimize background images for maximum performance, and fast loading.
 
 ---
 
