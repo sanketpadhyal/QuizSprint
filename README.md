@@ -27,8 +27,8 @@ It is **100% mobile-friendly**, **fully responsive**, and includes a **working b
 
 ## 🚀 Live Demo  
 
-- **Main Website:** [https://bespoke-tanuki-317082.netlify.app](https://bespoke-tanuki-317082.netlify.app)  
-- **Admin Panel:** [https://bespoke-tanuki-317082.netlify.app/admin](https://bespoke-tanuki-317082.netlify.app/admin)  
+- **Main Website:** [https://quizsprintt.netlify.app](https://quizsprintt.netlify.app)  
+- **Admin Panel:** [https://quizsprintt.netlify.app/admin](https://quizsprintt.netlify.app/admin)  
 
 ⚠️ *Note: This is a working prototype. For production, it is highly recommended to host the **Admin Panel** on a separate domain or backend for better security.*  
 
