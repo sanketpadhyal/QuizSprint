@@ -3,7 +3,6 @@
 **QuizSprint** 🎓 is a **full-stack interactive quiz platform** with a **secure admin panel** and a **real-time leaderboard**.  
 It is **100% mobile-friendly**, **fully responsive**, and includes a **working backend** — making it a **complete demo project** for real-world quiz management.  
 
-![License](https://img.shields.io/badge/license-MIT-green)  
 ![Status](https://img.shields.io/badge/status-Prototype-yellow)  
 ![Made By](https://img.shields.io/badge/made%20by-Sanket%20Padhyal-blue)  
 
