@@ -1,7 +1,16 @@
-# QuizSprint 🎓
+# 🎓 QuizSprint  
 
-**QuizSprint** 🎓 is a **full-stack interactive quiz platform** with a **secure admin panel** and **real-time leaderboard**.  
-It is **100% mobile-friendly**, **fully responsive**, and comes with a **working backend** — making it a **complete demo** for real-world quiz management.  
+**QuizSprint** 🎓 is a **full-stack interactive quiz platform** with a **secure admin panel** and a **real-time leaderboard**.  
+It is **100% mobile-friendly**, **fully responsive**, and includes a **working backend** — making it a **complete demo project** for real-world quiz management.  
+
+![License](https://img.shields.io/badge/license-MIT-green)  
+![Status](https://img.shields.io/badge/status-Prototype-yellow)  
+![Made By](https://img.shields.io/badge/made%20by-Sanket%20Padhyal-blue)  
+
+![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JavaScript-orange)  
+![Backend](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express.js-brightgreen)  
+![Database](https://img.shields.io/badge/Database-JSON-lightgrey)  
+![Hosting](https://img.shields.io/badge/Hosting-Netlify%20%7C%20Replit-purple)  
 
 ---
 
@@ -10,8 +19,8 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 - 🎮 **Take Quizzes Live** – Attempt quizzes and get instant results.  
 - 🏆 **Leaderboard System** – Automatically tracks and displays top scores.  
 - 🔐 **Admin Panel** – Add, delete, and manage quiz questions securely.  
-- 📱 **Fully Mobile Optimized** – Both **main site** and **admin panel** work perfectly on all devices.  
-- ⚡ **Full Backend Included** – Can be deployed on **Replit, Render, or any Node.js hosting**.  
+- 📱 **Fully Mobile Optimized** – Both the **main site** and **admin panel** work seamlessly across all devices.  
+- ⚡ **Full Backend Included** – Deployable on **Replit, Render, or any Node.js hosting**.  
 - 🌐 **Live Hosting** – Frontend hosted on **Netlify**, backend on **Replit**.  
 
 ---
@@ -19,32 +28,26 @@ It is **100% mobile-friendly**, **fully responsive**, and comes with a **working
 ## 🚀 Live Demo  
 
 - **Main Website:** [https://bespoke-tanuki-317082.netlify.app](https://bespoke-tanuki-317082.netlify.app)  
-- **Admin Panel:** [https://bespoke-tanuki-317082.netlify.app/admin](https://bespoke-tanuki-317082.netlify.app/admin) // its just working protoype! i would suggest you to use different domain for admin.html so that it will be more sure!
+- **Admin Panel:** [https://bespoke-tanuki-317082.netlify.app/admin](https://bespoke-tanuki-317082.netlify.app/admin)  
+
+⚠️ *Note: This is a working prototype. For production, it is highly recommended to host the **Admin Panel** on a separate domain or backend for better security.*  
 
 ---
 
 ## 🔑 Admin Panel Demo Access  
 
-- **Password:** `123` *(Demo Only)*  
+- **Password:** `123` *(Demo Access)*  
 
-⚠️ *Note: This is a demo project. Anyone with this password can explore and control the main web by this admin panel.*  
+⚠️ *Anyone with this password can explore and modify quiz data. Do not use in production as-is.*  
 
 ---
 
 ## 🛠 Tech Stack  
 
 - **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Node.js, Express.js  
-- **Database:** JSON (quizzes & leaderboard)  
+- **Backend:** Node.js + Express.js  
+- **Database:** JSON (for quizzes & leaderboard storage)  
 - **Hosting:** Netlify (Frontend) + Replit (Backend)  
-
----
-
-📌 Note
-This project is fully open-source and educational.
-We have included all files including backend, and you can run the backend on platforms like Replit, Render, or any Node.js host.
-
-QuizSprint represents my passion for web development i build it without any guidance of colleges i used ai like chat gpt gemini, trying to improve myself learn more and build strong.
 
 ---
 
@@ -52,16 +55,13 @@ QuizSprint represents my passion for web development i build it without any guid
 
 ```plaintext
 📦 QuizSprint
- ┣ 📂 assets              # Icons & images & favicons.
- ┣ 📜 index.html          # Main page / landing type.
+ ┣ 📂 assets              # Icons, images, favicons & background
+ ┣ 📜 index.html          # Main landing page
  ┣ 📜 admin.html          # Admin panel
- ┣ 📜 quiz.html           # Quizes panel
- ┣ 📜 leaderboard.html    # Leaderboard panel
- ┣ 📜 result.html         # Result displays here!
- ┣ 📜 about.html          # About web and developer
- ┣ 📜 index.js            # Backend server
- ┣ 📜 quizzes.json        # Stores all quiz questions
+ ┣ 📜 quiz.html           # Quiz interface
+ ┣ 📜 leaderboard.html    # Leaderboard display
+ ┣ 📜 result.html         # Quiz results page
+ ┣ 📜 about.html          # About page (project & developer)
+ ┣ 📜 index.js            # Backend server (Node + Express)
+ ┣ 📜 quizzes.json        # Stores quiz questions
  ┣ 📜 leaderboard.json    # Stores leaderboard scores
-
-
-
