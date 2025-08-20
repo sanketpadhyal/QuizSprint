@@ -51,6 +51,16 @@ It is **100% mobile-friendly**, **fully responsive**, and includes a **working b
 
 ---
 
+## 🖼️ Assets  
+
+- Project includes a **background wallpaper (`assets/bg.jpg`)**.  
+
+![Background Image](assets/bg.jpg)  
+
+> 💡 Always compress or optimize background images for maximum performance.  
+
+---
+
 ## 📂 Project Structure  
 
 ```plaintext
