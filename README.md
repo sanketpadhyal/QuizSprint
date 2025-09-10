@@ -26,6 +26,13 @@ It is **100% mobile-friendly**, **fully responsive**, and includes a **working b
 
 ---
 
+# 📢 ALERT: BACKEND IS NOW 24×7 ONLINE 
+
+✅ The **QuizSprint Backend** is now fully hosted on **Render**, which means the project is **available 24×7 without downtime**.  
+⚡ Your experience is smoother, faster, and always active! 
+
+---
+
 ## 🚀 Live Demo  
 
 - **Main Website:** [https://quizsprintt.netlify.app](https://quizsprintt.netlify.app)  
