@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 const QUIZZES_FILE = "quizzes.json";
 const LEADERBOARD_FILE = "leaderboard.json";
-const ADMIN_KEY = "123"; // Your ADMIN PANEL password
+const ADMIN_KEY = "Demo123"; // Your ADMIN PANEL password
 
 // Fixed quizzes list
 const FIXED_QUIZZES = [
